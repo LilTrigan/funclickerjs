@@ -6,7 +6,10 @@ fetch("translations.json")
   .then(data => {
     translations = data;
     const userLang = navigator.language || navigator.userLanguage;
-    lang = userLang.startsWith("uk") ? "uk" : "en";
+    if (userLang.startsWith("ua")) lang = "ua";
+    else if (userLang.startsWith("ru")) lang = "ru";
+    else lang = "en";
+
     applyTranslations();
   });
 
