@@ -64,6 +64,7 @@
     };
 
     const button = document.getElementById("Button");
+    let isMoving = false;
 
 
     function KarmaFun() {
@@ -71,6 +72,7 @@
     }
 
     function Changepos() {
+      isMoving = true;
       KarmaFun();
       const maxX = window.innerWidth - button.offsetWidth;
       const maxY = window.innerHeight - button.offsetHeight;
@@ -81,8 +83,12 @@
       button.style.left = `${randomX}px`;
       button.style.top = `${randomY}px`;
     }
+    button.addEventListener("transitioned", () => {
+      isMoving = false;
+    });
 
     button.addEventListener("click", () => {
+      if (isMoving) return;
       quest.karma -=10;
       Changepos();
       KarmaFun();
@@ -90,7 +96,6 @@
         button.style.display = "none"
         triggerScreamer()
       }
-
     });
 
     function triggerScreamer() {
