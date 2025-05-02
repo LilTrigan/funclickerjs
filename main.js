@@ -1,5 +1,6 @@
 let translations = {};
 let lang = "en";
+let t = {};
 
 fetch("translations.json")
   .then(response => response.json())
@@ -12,9 +13,20 @@ fetch("translations.json")
 
     applyTranslations();
   });
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlLang = urlParams.get("lang");
+  
+  if (urlLang && ["en", "ru", "uk"].includes(urlLang)) {
+    lang = urlLang;
+  } else {
+    const userLang = navigator.language || navigator.userLanguage;
+    if (userLang.startsWith("uk")) lang = "uk";
+    else if (userLang.startsWith("ru")) lang = "ru";
+    else lang = "en";
+  }
 
 function applyTranslations() {
-  const t = translations[lang];
+  t = translations[lang];
   document.getElementById("Button").innerText = t.buttonText;
   document.getElementById("karma").innerText = t.karmaLabel + quest.karma;
 }
@@ -30,7 +42,7 @@ let isMoving = false;
 
 
 function KarmaFun() {
-  document.getElementById("karma").innerText = "Карма:" + quest.karma;
+  document.getElementById("karma").innerText = t.karmaLabel + quest.karma;
 }
 
 function Changepos() {
