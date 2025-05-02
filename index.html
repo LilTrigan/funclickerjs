@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LilTrigan</title>
+  <style>
+    #Button {
+      position: absolute;
+      top: 400px;
+      padding: 10px 20px;
+      background-color: Tomato;
+      cursor: pointer;
+      transition: left 0.5s ease-out, top 0.5s ease-out;
+    }
+    .karma-btn {
+      padding: 10px 20px;
+      background-color: Tomato;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    body {
+      height: 100vh;
+      overflow: hidden;
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background-color: #f0f0f0;
+    }
+    #karma {
+      font-size: 36px;
+      font-weight: bold;
+      color: #FF6347;
+      margin-top: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      letter-spacing: 2px;
+    }
+    #video {
+      height: 100%;
+      width: 100%;
+      z-index: 9999;
+      height: 100vh;
+      width: 100vw;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <button id="Button">Не нажимай</button>
+  <button class="karma-btn" onclick="KarmaFun()">Нажми чтобы узнать карму</button>
+  <p id="karma"></p>
+  <div class="scare">
+  <video id="video" style="display: none;" class="video" src="video.mp4" loop></video>
+  </div>
+
+  <script>
+    const video = document.getElementById("video");
+    const quest = {
+      stage: 1,
+      karma: 100
+    };
+
+    const button = document.getElementById("Button");
+
+
+    function KarmaFun() {
+      document.getElementById("karma").innerText = "Карма:" + quest.karma;
+    }
+
+    function Changepos() {
+      KarmaFun();
+      const maxX = window.innerWidth - button.offsetWidth;
+      const maxY = window.innerHeight - button.offsetHeight;
+
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+
+      button.style.left = `${randomX}px`;
+      button.style.top = `${randomY}px`;
+    }
+
+    button.addEventListener("click", () => {
+      quest.karma -=10;
+      Changepos();
+      KarmaFun();
+      if (quest.karma <= 10 ) {
+        button.style.display = "none"
+        triggerScreamer()
+      }
+
+    });
+
+    function triggerScreamer() {
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      }
+      video.style.display = "block";
+      video.play();
+      videoClick();
+    }
+
+    function videoClick(event) {
+      if(event) event.preventDefault();
+      const { documentElement } = document;
+      if(documentElement.requestFullscreen) documentElement.requestFullscreen();
+      else if(documentElement.mozRequestFullScreen) documentElement.mozRequestFullScreen();
+      else if(documentElement.webkitRequestFullscreen) documentElement.webkitRequestFullscreen();
+      else if(documentElement.msRequestFullscreen) documentElement.msRequestFullscreen();
+    }
+  </script>
+
+</body>
+</html>
