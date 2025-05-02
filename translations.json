@@ -1,0 +1,20 @@
+{
+    "en": {
+      "buttonText": "Do not click",
+      "karmaLabel": "Karma:",
+      "karmaButton": "Click to check karma",
+      "alertText": "I said DO NOT click!"
+    },
+    "ua": {
+      "buttonText": "Не натискай",
+      "karmaLabel": "Карма:",
+      "karmaButton": "Натисни, щоб дізнатися карму",
+      "alertText": "Я ж казав НЕ натискати!"
+    },
+    "ru": {
+        "buttonText": "Не нажимай",
+        "karmaLabel": "Карма:",
+        "karmaButton": "Нажми, чтобы узнать карму",
+        "alertText": "Я же сказал НЕ НАЖИМАТЬ!"
+      }
+  }
